@@ -6,6 +6,8 @@
 	<string>mads379@gmail.com</string>
 	<key>contactName</key>
 	<string>Mads Hartmann</string>
+	<key>description</key>
+	<string>A type-safe Java VM language incorporating both object oriented and functional programming.</string>
 	<key>mainMenu</key>
 	<dict>
 		<key>items</key>
