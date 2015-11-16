@@ -34,8 +34,8 @@ Shell variables
 ---------------
 
 - **SCALA_DOC**: If you want to browse the documentation offline, set this shell variable. Here's how mine is set: /Users/Mads/dev/programming\_languages/scala-2.8.1.final-devel-docs
-- **SCALA_HOME**:If you want to be able to run and/or compile single files from within textmate /Users/Mads/dev/programming\_languages/scala-2.8.0.final/
-- **SCALA_COMPILER**:Defaults to scalac. 
+- **TM_SCALA**: Defaults to `scala`
+- **TM_SCALAC**: Defaults to `scalac`
 
 Installation
 ------------
