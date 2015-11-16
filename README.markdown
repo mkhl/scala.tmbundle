@@ -18,7 +18,7 @@ This means you have to hit tab twice but I think that's a fair tradeoff.
 
 **Playing with the code**
 
-The bundle offers several ways to play around with Scala code in your document - Hit ⌘R and see the options possible
+The bundle offers several ways to play around with Scala code in your document - Hit ⇧⌘R and see the options possible
 
 - **Scala REPL**: This will start the Scala REPL in a new tab in the a frontmost terminal window or create a new window if one doesn't exist. 
 - **Scala REPL: Preload file** This will start the Scala REPL like above but it will preload the current file
@@ -40,9 +40,7 @@ Shell variables
 Installation
 ------------
 
-<pre><code>git clone git://github.com/mads379/scala.tmbundle.git
-open scala.tmbundle
-</code></pre>
+You can install this bundle in TextMate by opening the preferences and going to the bundles tab. After installation it will be automatically updated for you.
 
 Contributors
 ------------
