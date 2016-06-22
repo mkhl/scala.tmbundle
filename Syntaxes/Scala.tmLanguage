@@ -391,7 +391,7 @@
 						<key>2</key>
 						<dict>
 							<key>name</key>
-							<string>storage.type.$1.scala</string>
+							<string>storage.type.$2.scala</string>
 						</dict>
 						<key>3</key>
 						<dict>
@@ -694,6 +694,42 @@
 				</dict>
 				<dict>
 					<key>match</key>
+					<string>\b(def|macro|type)\b</string>
+					<key>name</key>
+					<string>keyword.control.$1.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(new)\b</string>
+					<key>name</key>
+					<string>keyword.control.directive.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(extends|with|forSome)\b</string>
+					<key>name</key>
+					<string>storage.modifier.$1.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(class|trait|object|package)\b</string>
+					<key>name</key>
+					<string>storage.type.$1.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(val)\b</string>
+					<key>name</key>
+					<string>storage.type.stable.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(var)\b</string>
+					<key>name</key>
+					<string>storage.type.volatile.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
 					<string>(==?|!=|&lt;=|&gt;=|&lt;&gt;|&lt;|&gt;)</string>
 					<key>name</key>
 					<string>keyword.operator.comparison.scala</string>
@@ -715,6 +751,12 @@
 					<string>(&lt;-|←|-&gt;|→|=&gt;|⇒|\?|\:+|@|\|)+</string>
 					<key>name</key>
 					<string>keyword.operator.scala</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(\?\?\?)</string>
+					<key>name</key>
+					<string>keyword.operator.exception.scala</string>
 				</dict>
 			</array>
 		</dict>
