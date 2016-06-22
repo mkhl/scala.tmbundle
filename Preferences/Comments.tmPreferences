@@ -5,7 +5,7 @@
 	<key>name</key>
 	<string>Comments</string>
 	<key>scope</key>
-	<string>source.scala</string>
+	<string>source.scala, source.sbt</string>
 	<key>settings</key>
 	<dict>
 		<key>shellVariables</key>
