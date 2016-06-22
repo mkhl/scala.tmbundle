@@ -374,7 +374,11 @@
 					<key>match</key>
 					<string>(?x)
 						\b(def)\s+
-						(`[^`]+`|[_$a-zA-Z][_$a-zA-Z0-9]*(?:_[^\s])(?=[(\t ])|[_$a-zA-Z][_$a-zA-Z0-9]*|[-?~&gt;&lt;^+*%:!#|/@\\]+)</string>
+						(	`[^`]+`								# string literal
+						|	[^\w$`\s\(\)\[\]\{\};\.]+			# operator
+						|	[a-zA-Z$_][a-zA-Z0-9$_]*			# identifier
+							((?&lt;=_)[^\w$`\s\(\)\[\]\{\};\.])?	# trailing operator
+						)</string>
 				</dict>
 				<dict>
 					<key>captures</key>
