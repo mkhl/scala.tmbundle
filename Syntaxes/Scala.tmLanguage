@@ -109,6 +109,106 @@
 				</dict>
 			</array>
 		</dict>
+		<key>class-parameter-list</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>end</key>
+					<string>\)</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.scala</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>([a-zA-Z$_][a-zA-Z0-9$_]*)\s*:\s*</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<key>class-type-or-parameter-list</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\b(private|protected)\b</string>
+					<key>name</key>
+					<string>storage.modifier.access.scala</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\[</string>
+					<key>end</key>
+					<string>\]</string>
+					<key>name</key>
+					<string>meta.parameter.types.scala</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#class-type-parameter-list</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>end</key>
+					<string>\)</string>
+					<key>name</key>
+					<string>meta.parameter.values.scala</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#class-parameter-list</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>class-type-parameter-list</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\[</string>
+					<key>end</key>
+					<string>\]</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#class-type-parameter-list</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
 		<key>code</key>
 		<dict>
 			<key>patterns</key>
@@ -164,10 +264,6 @@
 				<dict>
 					<key>include</key>
 					<string>#empty-blocks</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#parameter-list</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -358,7 +454,15 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>captures</key>
+					<key>begin</key>
+					<string>(?x)
+						\b(def)\s+
+						(	`[^`]+`								# string literal
+						|	[^\w$`\s\(\)\[\]\{\};\.]+			# operator
+						|	[a-zA-Z$_][a-zA-Z0-9$_]*			# identifier
+							((?&lt;=_)[^\w$`\s\(\)\[\]\{\};\.])?	# trailing operator
+						)</string>
+					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
 						<dict>
@@ -371,17 +475,20 @@
 							<string>entity.name.function.declaration.scala</string>
 						</dict>
 					</dict>
-					<key>match</key>
-					<string>(?x)
-						\b(def)\s+
-						(	`[^`]+`								# string literal
-						|	[^\w$`\s\(\)\[\]\{\};\.]+			# operator
-						|	[a-zA-Z$_][a-zA-Z0-9$_]*			# identifier
-							((?&lt;=_)[^\w$`\s\(\)\[\]\{\};\.])?	# trailing operator
-						)</string>
+					<key>end</key>
+					<string>(?=[:\{=\n])</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#function-type-or-parameter-list</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
-					<key>captures</key>
+					<key>begin</key>
+					<string>(?:(case) +)?\b(class|trait|object)\s+([^\s\{\(\[]+)</string>
+					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
 						<dict>
@@ -399,8 +506,15 @@
 							<string>entity.name.type.class.declaration.scala</string>
 						</dict>
 					</dict>
-					<key>match</key>
-					<string>(?:(case) +)?\b(class|trait|object)\s+([^\s\{\(\[]+)</string>
+					<key>end</key>
+					<string>(?=([\{\n]|extends))</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#class-type-or-parameter-list</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
 					<key>captures</key>
@@ -525,6 +639,100 @@
 					<string>(\{)(\})</string>
 					<key>name</key>
 					<string>meta.braces.scala</string>
+				</dict>
+			</array>
+		</dict>
+		<key>function-parameter-list</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>end</key>
+					<string>\)</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.scala</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>([a-zA-Z$_][a-zA-Z0-9$_]*)\s*:\s*</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<key>function-type-or-parameter-list</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\[</string>
+					<key>end</key>
+					<string>\]</string>
+					<key>name</key>
+					<string>meta.parameter.types.scala</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#function-type-parameter-list</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>end</key>
+					<string>\)</string>
+					<key>name</key>
+					<string>meta.parameter.values.scala</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#function-parameter-list</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>function-type-parameter-list</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\[</string>
+					<key>end</key>
+					<string>\]</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#function-type-parameter-list</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>
@@ -794,31 +1002,6 @@
 					<string>(?&lt;!:):(?!:)</string>
 					<key>name</key>
 					<string>meta.colon.scala</string>
-				</dict>
-			</array>
-		</dict>
-		<key>parameter-list</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>captures</key>
-					<dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>variable.parameter.scala</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>meta.colon.scala</string>
-						</dict>
-					</dict>
-					<key>comment</key>
-					<string>We do not match param names that start with a Capitol letter</string>
-					<key>match</key>
-					<string>(?&lt;=[^\._$a-zA-Z0-9])(`[^`]+`|[_$a-z][_$a-zA-Z0-9]*(?:_[^\s])(?=[\t ])|[_$a-z][_$a-zA-Z0-9]*|[-?~&gt;&lt;^+*%:!#|/@\\]+)\s*(:)\s+</string>
 				</dict>
 			</array>
 		</dict>
